@@ -1,20 +1,25 @@
 import Footer from "../components/Footer";
-import Key from "../components/tutorial/Key";
+import Slide from "../components/tutorial/Slide";
 import Scene from "./Scene";
+
 
 export default class Tutorial extends Scene {
   async onCreated() {
     const footer = new Footer();
+    const blurFilter= new PIXI.filters.BlurFilter();
+    blurFilter.blur = 100
+    // blurFilter.quality = 20 // this makes my gpu go wild
+    this.background.filters = [blurFilter];
     footer.x = -window.innerWidth / 2;
     footer.y = window.innerHeight / 2 - footer.height;
     this.addChild(footer);
 
 
-    const key = new Key();
+    const slide = new Slide("A", "ala bala");
     // key.x = -window.innerWidth / 2;
     // key.y = window.innerHeight / 2;
 
-    this.addChild(key)
+    this.addChild(slide)
   }
 
   /**
