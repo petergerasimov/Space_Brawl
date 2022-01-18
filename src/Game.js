@@ -1,6 +1,7 @@
 import { Container } from "pixi.js";
 import Play from "./scenes/Play";
 import Splash from "./scenes/Splash";
+import Tutorial from "./scenes/Tutorial";
 
 /**
  * Main game stage, manages scenes/levels.
@@ -28,7 +29,7 @@ export default class Game extends Container {
     await this.switchScene(Splash, { scene: "splash" });
     await this.currentScene.finish;
 
-    this.switchScene(Play, { scene: "play" });
+    this.switchScene(Tutorial, { scene: "tutorial" });
   }
 
   /**
