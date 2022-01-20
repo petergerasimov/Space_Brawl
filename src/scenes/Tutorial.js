@@ -15,7 +15,9 @@ export default class Tutorial extends Scene {
     this.addChild(footer);
 
 
-    const slide = new Slide("A", "ala bala");
+    const slide = new Slide([{key: "A", instructions: "ala bala"},
+                             {key: "S", instructions: "sla bala"},
+                             {key: "D", instructions: "dla bala"}]);
     // key.x = -window.innerWidth / 2;
     // key.y = window.innerHeight / 2;
 
