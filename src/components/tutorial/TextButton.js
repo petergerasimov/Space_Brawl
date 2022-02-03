@@ -1,6 +1,4 @@
-import { Container, Graphics, Sprite, Text } from "pixi.js";
-
-import gsap from "gsap";
+import { Container, Graphics, Text } from 'pixi.js';
 
 export default class TextButton extends Container {
 
@@ -33,7 +31,7 @@ export default class TextButton extends Container {
     body.beginFill(this.color, 1);
     body.drawRoundedRect(-buttonWidth / 2, -buttonHeight / 2, buttonWidth, buttonHeight, this.radius);
     body.endFill();
-    this.addChild(body)
+    this.addChild(body);
     this.addChild(btext);
   }
 

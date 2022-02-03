@@ -1,8 +1,11 @@
 import { Container, Graphics, Sprite, Text } from 'pixi.js';
 
-import gsap from 'gsap';
 import TextButton from './TextButton';
 import Indicator from './Indicator';
+
+const EVENTS = {
+  SLIDES_COMPLETED: 'slides_completed',
+};
 
 export default class Slide extends Container {
   /**
@@ -15,27 +18,38 @@ export default class Slide extends Container {
     this.name = 'slide';
     this.slides = slides;
     this._index = 0;
-
+    
     this._addKey();
     this._addLetter();
     this._addInstructions();
 
-
-    const indicator = new Indicator(3);
-    this.addChild(indicator);
-    indicator.y = this.key.height - 50;
+    this._indicator = new Indicator(this.slides.length);
+    this.addChild(this._indicator);
+    this._indicator.y = this.key.height - 50;
 
     const button = new TextButton('NEXT', 35, 50, 0xffffff);
     this.addChild(button);
     button.y += this.key.height;
-    button.on('click', ()=> { 
-      this._index = ++this._index % this.slides.length;
-      indicator.select(this._index);
-      this.instructions.text = this.slides[this._index].instructions;
-      this.keyToPress.text = this.slides[this._index].key;
-    });
+    button.on('click', () => this._updateSlide());
   }
 
+  static get events() {
+    return EVENTS;
+  }
+  /**
+   * @private
+   */
+  _updateSlide() {
+    if (this._index < this.slides.length - 1) {
+      this._index++;
+      
+    } else {
+      this.emit(Slide.events.SLIDES_COMPLETED);
+    }
+    this._indicator.select(this._index);
+    this.instructions.text = this.slides[this._index].instructions;
+    this.keyToPress.text = this.slides[this._index].key;
+  }
   /**
    * @private
    */

@@ -1,5 +1,5 @@
-import Assets from "../core/AssetManager";
-import { Container } from "pixi.js";
+import Assets from '../core/AssetManager';
+import { Container } from 'pixi.js';
 
 /**
  * Scene abstract class, defines common scene methods

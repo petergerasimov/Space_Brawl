@@ -1,10 +1,10 @@
-import { Application, Sprite } from "pixi.js";
+import { Application, Sprite } from 'pixi.js';
 
-import Assets from "./AssetManager";
-import Game from "../Game";
-import { Viewport } from "pixi-viewport";
-import { center } from "./utils";
-import config from "../config";
+import Assets from './AssetManager';
+import Game from '../Game';
+import { Viewport } from 'pixi-viewport';
+import { center } from './utils';
+import config from '../config';
 
 /**
  * Game entry point. Holds the game's viewport and responsive background
@@ -16,7 +16,7 @@ export default class GameApplication extends Application {
 
     this.config = config;
     Assets.renderer = this.renderer;
-
+    
     this.setupViewport();
     this.initGame();
   }
@@ -95,16 +95,16 @@ export default class GameApplication extends Application {
    *
    */
   async createBackground() {
-    const images = { background: Assets.images["play-scene"] };
+    const images = { background: Assets.images['play-scene'] };
 
     await Assets.load({ images });
     await Assets.prepareImages(images);
 
-    const sprite = Sprite.from("background");
+    const sprite = Sprite.from('background');
 
     this.background = sprite;
     this.background.anchor.set(0.5);
-    this.background.name = "background";
+    this.background.name = 'background';
 
     this.stage.addChildAt(sprite);
   }

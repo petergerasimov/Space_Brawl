@@ -1,9 +1,8 @@
 import Footer from '../components/Footer';
-import Slides from '../components/tutorial/Slides';
 import Scene from './Scene';
-import { filters } from 'pixi.js';
+import { Graphics, filters } from 'pixi.js';
 
-export default class Tutorial extends Scene {
+export default class Countdown extends Scene {
   constructor() {
     super();
   }
@@ -17,20 +16,25 @@ export default class Tutorial extends Scene {
     footer.y = window.innerHeight / 2 - footer.height;
     this.addChild(footer);
 
-    this._slides = new Slides([{ key: 'A', instructions: 'ala bala' },
-      { key: 'S', instructions: 'sla bala' },
-      { key: 'D', instructions: 'dla bala' }]);
+    this._number = 3;
 
-    // key.x = -window.innerWidth / 2;
-    // key.y = window.innerHeight / 2;
-
-    this.addChild(this._slides);
+    this._numberCountdown();
   }
+  /**
+   *
+   * @private
+   * @memberof Countdown
+   */
+  _numberCountdown() {
+    const graphics = new Graphics();
 
-  get finish() {
-    return new Promise((res) => this._slides.on('slides_completed', res));
+    graphics.lineStyle(10, 0xffffff, 1);
+    graphics.beginFill(0xffffff, 0.5);
+    graphics.drawCircle(400, 250, 50);
+    graphics.endFill();
+
+    this.addChild(graphics);
   }
-
   /**
    * Hook called by the application when the browser window is resized.
    * Use this to re-arrange the game elements according to the window size
@@ -38,7 +42,6 @@ export default class Tutorial extends Scene {
    * @param  {Number} width  Window width
    * @param  {Number} height Window height
    */
-  
   onResize(width, height) { // eslint-disable-line no-unused-vars
   }
 }

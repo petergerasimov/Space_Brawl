@@ -1,13 +1,13 @@
-import Assets from "../core/AssetManager";
-import Scene from "./Scene";
-import { Text } from "pixi.js";
-import config from "../config";
+import Assets from '../core/AssetManager';
+import Scene from './Scene';
+import { Text } from 'pixi.js';
+import config from '../config';
 
 export default class Splash extends Scene {
   constructor() {
     super();
 
-    this.loadingText = new Text("0%", {
+    this.loadingText = new Text('0%', {
       fontSize: 75,
       fill: 0x0c4bfa,
     });
@@ -27,7 +27,8 @@ export default class Splash extends Scene {
   preload() {
     const images = {
       logo: Assets.images.logo,
-      "key-default": Assets.images["key-default"],
+      'key-default': Assets.images['key-default'],
+      
     };
     const sounds = {};
 
