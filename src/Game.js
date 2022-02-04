@@ -1,5 +1,5 @@
 import { Container } from 'pixi.js';
-// import Play from './scenes/Play';
+import Play from './scenes/Play';
 import Splash from './scenes/Splash';
 import Tutorial from './scenes/Tutorial';
 import Countdown from './scenes/Countdown';
@@ -33,7 +33,10 @@ export default class Game extends Container {
     await this.switchScene(Tutorial, { scene: 'tutorial' });
     await this.currentScene.finish;
 
-    this.switchScene(Countdown, { scene: 'countdown' });
+    await this.switchScene(Countdown, { scene: 'countdown' });
+    await this.currentScene.finish;
+
+    await this.switchScene(Play, { scene: 'play' });
   }
 
   /**

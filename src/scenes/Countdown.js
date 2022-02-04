@@ -1,6 +1,7 @@
 import Footer from '../components/Footer';
 import Scene from './Scene';
-import { Graphics, filters } from 'pixi.js';
+import { Graphics, filters, Text } from 'pixi.js';
+import { gsap, SteppedEase } from 'gsap/all';
 
 export default class Countdown extends Scene {
   constructor() {
@@ -17,6 +18,7 @@ export default class Countdown extends Scene {
     this.addChild(footer);
 
     this._number = 3;
+    this._tween = null;
 
     this._numberCountdown();
   }
@@ -30,10 +32,23 @@ export default class Countdown extends Scene {
 
     graphics.lineStyle(10, 0xffffff, 1);
     graphics.beginFill(0xffffff, 0.5);
-    graphics.drawCircle(400, 250, 50);
+    graphics.drawCircle(0, 0, 200);
     graphics.endFill();
 
     this.addChild(graphics);
+
+    const numText = new Text(this._number.toString(), {
+      fontSize: 150,
+      fill: 0xffffff,
+    });
+    numText.anchor.set(0.5);
+    this.addChild(numText);
+
+    this._tween = gsap.to(numText, {text: '0', duration: this._number, ease: SteppedEase.config(this._number)});
+  }
+
+  get finish() {
+    return this._tween;
   }
   /**
    * Hook called by the application when the browser window is resized.
