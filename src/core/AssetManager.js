@@ -99,7 +99,7 @@ class AssetManager {
    * Prerender our loaded textures, so that they don't need to be uploaded to the GPU the first time we use them.
    * Very helpful when we want to swap textures during an animation without the animation stuttering
    *
-   * @return {Promise} Resolved when all queued uploads have completed
+   * @returthis._addRover();mise} Resolved when all queued uploads have completed
    */
   prepareImages(images = {}, renderer = this.renderer) {
     const prepare = renderer.plugins.prepare;
