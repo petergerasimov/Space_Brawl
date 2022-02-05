@@ -32,6 +32,10 @@ export default class Splash extends Scene {
       'planet-2': Assets.images['planet-2'],
       'planet-3': Assets.images['planet-3'],
       'planet-4': Assets.images['planet-4'],
+      rover: Assets.images.rover,
+      'rover-shadow': Assets.images['rover-shadow'],
+      'shield-active': Assets.images['shield-active'],
+      'shield-inactive': Assets.images['shield-inactive'],
     };
     const sounds = {};
 

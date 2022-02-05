@@ -1,12 +1,16 @@
 import Footer from '../components/Footer';
 import Scene from './Scene';
 import { Sprite } from 'pixi.js';
+import Rover from '../components/play/Rover';
 
 export default class Play extends Scene {
   async onCreated() {
     this.background.filters = [];
 
     this._addPlanets();
+
+    this._rover = new Rover();
+    this.addChild(this._rover);
 
     const footer = new Footer();
     footer.x = -window.innerWidth / 2;
