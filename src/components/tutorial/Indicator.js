@@ -1,6 +1,4 @@
-import { Container, Graphics, Sprite, Text } from "pixi.js";
-
-import gsap from "gsap";
+import { Container, Graphics } from 'pixi.js';
 
 export default class Indicator extends Container {
   constructor(size) {

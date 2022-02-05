@@ -28,7 +28,10 @@ export default class Splash extends Scene {
     const images = {
       logo: Assets.images.logo,
       'key-default': Assets.images['key-default'],
-      
+      'planet-1': Assets.images['planet-1'],
+      'planet-2': Assets.images['planet-2'],
+      'planet-3': Assets.images['planet-3'],
+      'planet-4': Assets.images['planet-4'],
     };
     const sounds = {};
 

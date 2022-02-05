@@ -1,16 +1,16 @@
-import { Loader, Spritesheet, Texture } from "pixi.js";
+import { Loader, Spritesheet, Texture } from 'pixi.js';
 
-import { Howl } from "howler";
-import config from "../config";
+import { Howl } from 'howler';
+import config from '../config';
 
 const context = require.context(
-  "../assets",
+  '../assets',
   true,
   /\.(jpg|png|wav|m4a|ogg|mp3)$/im
 );
 
-const IMG_EXTENSIONS = ["jpeg", "jpg", "png"];
-const SOUND_EXTENSIONS = ["wav", "ogg", "m4a", "mp3"];
+const IMG_EXTENSIONS = ['jpeg', 'jpg', 'png'];
+const SOUND_EXTENSIONS = ['wav', 'ogg', 'm4a', 'mp3'];
 
 /**
  * Global asset manager to help streamline asset usage in your game.
@@ -180,7 +180,7 @@ class AssetManager {
 
     this._sounds[id] = sound;
 
-    return new Promise((res) => sound.once("load", res));
+    return new Promise((res) => sound.once('load', res));
   }
 
   /**
@@ -191,7 +191,7 @@ class AssetManager {
    */
   _importAssets() {
     context.keys().forEach((filename) => {
-      let [, id, ext] = filename.split("."); // eslint-disable-line prefer-const
+      let [, id, ext] = filename.split('.'); // eslint-disable-line prefer-const
       const url = context(filename);
 
       id = id.substring(1);
