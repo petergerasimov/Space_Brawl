@@ -2,6 +2,7 @@ import Footer from '../components/Footer';
 import Scene from './Scene';
 import { Sprite } from 'pixi.js';
 import Rover from '../components/play/Rover';
+import Rocket from '../components/play/Rocket';
 
 export default class Play extends Scene {
   async onCreated() {
@@ -9,13 +10,24 @@ export default class Play extends Scene {
 
     this._addPlanets();
 
-    this._rover = new Rover();
-    this.addChild(this._rover);
+    this._player = new Rover();
+    this._player.x = 448;
+    this._player.y = 66;
+
+    this._enemy = new Rover();
+    this._enemy.x = -687;
+    this._enemy.y = -158;
+    this._enemy.rotation = Math.PI;
+
+    this._rocket = new Rocket();
+    await this._rocket.init();
+
+    this._rocket.move();
 
     const footer = new Footer();
     footer.x = -window.innerWidth / 2;
     footer.y = window.innerHeight / 2 - footer.height;
-    this.addChild(footer);
+    this.addChild(this._player, this._enemy, this._rocket, footer);
   }
   /**
    *
