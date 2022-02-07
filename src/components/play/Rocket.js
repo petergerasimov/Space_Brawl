@@ -41,22 +41,18 @@ export default class Rocket extends Container {
 
   move() {
     const pathID = Math.floor(Math.random() * this._paths.length);
-    const toRotate = { x: 0, y: 0, rotation: 0};
+    // const toRotate = { x: 0, y: 0, rotation: 0};
 
     gsap.registerPlugin(MotionPathPlugin);
-    gsap.to(toRotate, {
+    gsap.to(this, {
       duration: 10,
       motionPath: 
       {
         path: this._paths[pathID],
-        autoRotate: 90,
+        autoRotate: Math.PI / 2,
         alignOrigin: [0.5, 0.5],
+        useRadians: true,
       },
-      onUpdate: () => {
-        this.x = toRotate.x;
-        this.y = toRotate.y;
-        this.angle = toRotate.rotation;
-      }
     });
   }
 
