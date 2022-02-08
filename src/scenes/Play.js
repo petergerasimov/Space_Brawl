@@ -20,9 +20,18 @@ export default class Play extends Scene {
     this._enemy.rotation = Math.PI;
 
     this._rocket = new Rocket();
+    this._rocket.x = -483;
+    this._rocket.y = -150;
     await this._rocket.init();
 
-    this._rocket.move();
+    this._rocket.move(this._player._body);
+    this._rocket.on('collision', () => {
+      
+      if (this._rocket.lastCollider === this._player._body) {
+        console.log("HI");
+        this._player.healthbar.updateHealth(50);
+      }
+    });
 
     const footer = new Footer();
     footer.x = -window.innerWidth / 2;
