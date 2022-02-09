@@ -24,13 +24,12 @@ export default class Play extends Scene {
     this._rocket.y = -150;
     await this._rocket.init();
 
-    this._rocket.move(this._player._body);
-    this._rocket.on('collision', () => {
-      
-      if (this._rocket.lastCollider === this._player._body) {
-        console.log("HI");
-        this._player.healthbar.updateHealth(50);
-      }
+    this._rocket.move(this._player, this._player.upperShield, this._player.lowerShield);
+    this._player.on('collision_body', () => {
+      this._player.healthbar.updateHealth(50);
+    });
+    this._player.on('collision_downshield', () => {
+      console.log("HIT LOWER SHIELD")
     });
 
     const footer = new Footer();

@@ -1,6 +1,5 @@
 import { Container, Sprite } from 'pixi.js';
 import gsap, { MotionPathPlugin } from 'gsap/all';
-import collisions from './collisions';
 
 const EVENTS = {
   COLLISION: 'collision',
@@ -18,8 +17,6 @@ export default class Rocket extends Container {
 
     this._paths = [];
     this.tl = gsap.timeline();
-    this.lastCollider = null;
-
     // this.init();
 
   }
@@ -90,9 +87,7 @@ export default class Rocket extends Container {
         },
         onUpdate: () => {
           for (const collider of colliders) {
-            if (collisions.rectRect(collider.getBounds(), this._body.getBounds())) {
-              // console.log("HIT");
-              this.lastCollider = collider;
+            if (collider.collidesWith(this._body.getBounds())) {
               this.emit(Rocket.events.COLLISION);
               
               this.tl.pause();
