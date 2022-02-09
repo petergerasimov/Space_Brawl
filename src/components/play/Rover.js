@@ -81,4 +81,23 @@ export default class Rover extends Container {
 
     return false;
   }
+
+  /**
+   *
+   * Activates upper shield and deactivates lower shield
+   * @memberof Rover
+   */
+  shieldsUp() {
+    this.lowerShield.deactivate();
+    this.upperShield.activate();
+  }
+  /**
+   *
+   * Activates lower shield and deactivates upper shield
+   * @memberof Rover
+   */
+  shieldsDown() {
+    this.lowerShield.activate();
+    this.upperShield.deactivate();
+  }
 }

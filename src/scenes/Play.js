@@ -20,25 +20,48 @@ export default class Play extends Scene {
     this._enemy.rotation = Math.PI;
 
     this._rocket = new Rocket();
-    this._rocket.x = -483;
-    this._rocket.y = -150;
+    this._resetRocketToEnemy();
+    
     await this._rocket.init();
     this._rocket.attachColliders(...this._player.collidables, ...this._enemy.collidables);
     this._rocket.move();
 
     this._player.on('collision_body', () => {
       this._player.healthbar.subtractHealth(10);
+      this._resetRocketToEnemy();
+      this._rocket.move();
     });
     this._enemy.on('collision_body', () => {
       this._enemy.healthbar.subtractHealth(10);
+      this._resetRocketToEnemy();
+      this._rocket.move();
     });
     this._player.on('collision_anyshield', () => {
       this._rocket.resetWithOffset(-50);
       this._rocket.move(true);
+
+      // BEHOLD THE GREAT AI
+      if (Math.round(Math.random()) === 1) {
+        this._enemy.shieldsUp();
+      } else {
+        this._enemy.shieldsDown();
+      }
     });
     this._enemy.on('collision_anyshield', () => {
       this._rocket.resetWithOffset(50);
       this._rocket.move();
+    });
+    this._rocket.on('miss', () => {
+      this._resetRocketToEnemy();
+      this._rocket.move();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'ArrowUp') {
+        this._player.shieldsUp();
+      } else if (e.code === 'ArrowDown') {
+        this._player.shieldsDown();
+      }
     });
 
     const footer = new Footer();
@@ -72,6 +95,12 @@ export default class Play extends Scene {
 
     planets[3].x = 946;
     planets[3].y = -626;
+  }
+  _resetRocketToEnemy() {
+    this._rocket.x = -483;
+    this._rocket.y = -150;
+    this._rocket._body.x = 0;
+    this._rocket._body.y = 0;
   }
   /**
    * Hook called by the application when the browser window is resized.

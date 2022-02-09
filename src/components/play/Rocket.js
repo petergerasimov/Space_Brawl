@@ -3,6 +3,7 @@ import gsap, { MotionPathPlugin } from 'gsap/all';
 
 const EVENTS = {
   COLLISION: 'collision',
+  MISS: 'miss',
 };
 
 export default class Rocket extends Container {
@@ -88,7 +89,7 @@ export default class Rocket extends Container {
     if (!reverse) {
       path = this._paths[pathID];
     } else {
-      path = this._paths[pathID].map(x => -x);
+      path = this._paths[pathID].map((x) => -x);
     }
 
     // console.log(path);
@@ -97,7 +98,7 @@ export default class Rocket extends Container {
     
     this.tl
       .to(this._body, {
-        duration: 3,
+        duration: 1.5,
         motionPath:
         {
           path,
@@ -113,6 +114,9 @@ export default class Rocket extends Container {
               // this.tl.clear();
             }
           }
+        },
+        onComplete: () => {
+          this.emit(Rocket.events.MISS);
         }
       });
   }
