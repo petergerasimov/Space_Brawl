@@ -98,7 +98,8 @@ export default class Play extends Scene {
   }
   _resetRocketToEnemy() {
     this._rocket.x = -483;
-    this._rocket.y = -150;
+    // this._rocket.y = -150;
+    this._rocket.y = -100;
     this._rocket._body.x = 0;
     this._rocket._body.y = 0;
   }

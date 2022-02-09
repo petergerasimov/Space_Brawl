@@ -3,7 +3,9 @@ import Play from './scenes/Play';
 import Splash from './scenes/Splash';
 import Tutorial from './scenes/Tutorial';
 import Countdown from './scenes/Countdown';
-
+import Assets from './core/AssetManager';
+import fire from './static/fire.json';
+import boom from './static/boom.json';
 /**
  * Main game stage, manages scenes/levels.
  *
@@ -29,6 +31,14 @@ export default class Game extends Container {
   async start() {
     await this.switchScene(Splash, { scene: 'splash' });
     await this.currentScene.finish;
+
+    await Assets.prepareSpritesheets([
+      { texture: 'fire', data: fire }
+    ]);
+
+    await Assets.prepareSpritesheets([
+      { texture: 'boom', data: boom }
+    ]);
 
     // await this.switchScene(Tutorial, { scene: 'tutorial' });
     // await this.currentScene.finish;

@@ -1,5 +1,6 @@
 import { Container, Sprite } from 'pixi.js';
 import gsap, { MotionPathPlugin } from 'gsap/all';
+import Fire from './Fire';
 
 const EVENTS = {
   COLLISION: 'collision',
@@ -12,8 +13,17 @@ export default class Rocket extends Container {
 
     gsap.registerPlugin(MotionPathPlugin);
 
-    this._body = Sprite.from('rocket');
-    this._body.anchor.set(0.5);
+    this._body = new Container();
+
+    this._rocket = Sprite.from('rocket');
+    this._rocket.anchor.set(0.5);
+
+    this._flame = new Fire();
+    this._flame.scale.set(0.2);
+    this._flame.rotation = -Math.PI / 2;
+    this._flame.y = 50;
+    this._body.addChild(this._flame, this._rocket);
+
     this.addChild(this._body);
 
     this.colliders = [];
@@ -99,6 +109,7 @@ export default class Rocket extends Container {
     this.tl
       .to(this._body, {
         duration: 1.5,
+        ease: 'circ4.in',
         motionPath:
         {
           path,
@@ -108,7 +119,7 @@ export default class Rocket extends Container {
         },
         onUpdate: () => {
           for (const collider of this.colliders) {
-            if (collider.collidesWith(this._body.getBounds())) {
+            if (collider.collidesWith(this._rocket.getBounds())) {
               this.emit(Rocket.events.COLLISION);
               
               // this.tl.clear();

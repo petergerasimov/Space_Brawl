@@ -38,6 +38,8 @@ export default class Splash extends Scene {
       'shield-active': Assets.images['shield-active'],
       'shield-inactive': Assets.images['shield-inactive'],
       rocket: Assets.images.rocket,
+      fire: Assets.images.fire,
+      boom: Assets.images.boom,
       
     };
     const sounds = {};
