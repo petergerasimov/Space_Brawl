@@ -1,6 +1,10 @@
 import { Container, Sprite, Graphics } from 'pixi.js';
 import gsap from 'gsap';
 
+const EVENTS = {
+  EMPTY: 'empty'
+};
+
 export default class Healthbar extends Container {
   constructor() {
     super();
@@ -15,6 +19,9 @@ export default class Healthbar extends Container {
     this._bar = null;
     this._addBar();
 
+  }
+  static get events() {
+    return EVENTS;
   }
   /**
    *
@@ -44,9 +51,16 @@ export default class Healthbar extends Container {
         this._bar.width = (this._health / 100) * this._startWidth;
         this._bar.x += (this._bar.width - oldW) / 2;
       },
+      onComplete: () => {
+        if (this._health === 0) {
+          this.emit(Healthbar.events.EMPTY);
+        }
+      }
     });
   }
   subtractHealth(value) {
-    this.updateHealth(this._health - value);
+    if (this._health > 0) {
+      this.updateHealth(this._health - value);
+    }
   }
 }

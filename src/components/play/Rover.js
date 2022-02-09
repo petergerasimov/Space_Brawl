@@ -1,13 +1,15 @@
-import { Container, Sprite } from 'pixi.js';
+import { Container, Sprite, AnimatedSprite } from 'pixi.js';
 import Healthbar from './Healthbar';
 import Shield from './Shield';
 import { collisions } from './collisions';
+import Assets from '../../core/AssetManager';
 
 const EVENTS = {
   COLLISION_BODY: 'collision_body',
   COLLISION_UPSHIELD: 'collision_upshield',
   COLLISION_DOWNSHIELD: 'collision_downshield',
   COLLISION_ANYSHIELD: 'collision_anyshield',
+  DEATH: 'death',
 };
 
 export default class Rover extends Container {
@@ -39,9 +41,18 @@ export default class Rover extends Container {
     this.healthbar.x = -9;
     this.healthbar.y = -74;
 
-    // this.upperShield.activate();
+    this.healthbar.on('empty', () => {
+      this._explosion = new AnimatedSprite(Assets.spritesheets.boom.animations.boom);
+      this._explosion.anchor.set(0.5);
+      this._explosion.loop = false;
+      this._explosion.play();
+      this.addChild(this._explosion);
+      this._explosion.onComplete = () => {
+        this.emit(Rover.events.DEATH);
+      };
+    });
+
     this.lowerShield.activate();
-    // this._upperShield.activate();
 
     this.addChild(this._body, this._shadow, this.healthbar);
   }
