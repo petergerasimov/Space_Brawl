@@ -46,4 +46,7 @@ export default class Healthbar extends Container {
       },
     });
   }
+  subtractHealth(value) {
+    this.updateHealth(this._health - value);
+  }
 }

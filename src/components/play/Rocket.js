@@ -76,6 +76,12 @@ export default class Rocket extends Container {
   attachColliders(...colliders) {
     this.colliders = [...this.colliders, ...colliders];
   }
+  resetWithOffset(offX = 0, offY = 0) {
+    this.x += this._body.x + offX;
+    this.y += this._body.y + offY;
+    this._body.x = 0;
+    this._body.y = 0;
+  }
   move(reverse = false) {
     const pathID = Math.floor(Math.random() * this._paths.length);
     let path = null;
@@ -104,7 +110,7 @@ export default class Rocket extends Container {
             if (collider.collidesWith(this._body.getBounds())) {
               this.emit(Rocket.events.COLLISION);
               
-              // this.tl.pause();
+              // this.tl.clear();
             }
           }
         }

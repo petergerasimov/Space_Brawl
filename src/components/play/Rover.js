@@ -7,6 +7,7 @@ const EVENTS = {
   COLLISION_BODY: 'collision_body',
   COLLISION_UPSHIELD: 'collision_upshield',
   COLLISION_DOWNSHIELD: 'collision_downshield',
+  COLLISION_ANYSHIELD: 'collision_anyshield',
 };
 
 export default class Rover extends Container {
@@ -25,8 +26,14 @@ export default class Rover extends Container {
 
     this._addShields();
 
-    this.lowerShield.on('collision', () => this.emit(Rover.events.COLLISION_DOWNSHIELD));
-    this.upperShield.on('collision', () => this.emit(Rover.events.COLLISION_UPSHIELD));
+    this.lowerShield.on('collision', () => {
+      this.emit(Rover.events.COLLISION_DOWNSHIELD);
+      this.emit(Rover.events.COLLISION_ANYSHIELD);
+    });
+    this.upperShield.on('collision', () => {
+      this.emit(Rover.events.COLLISION_UPSHIELD);
+      this.emit(Rover.events.COLLISION_ANYSHIELD);
+    });
 
     this.healthbar = new Healthbar();
     this.healthbar.x = -9;
