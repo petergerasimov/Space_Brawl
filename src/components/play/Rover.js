@@ -41,6 +41,9 @@ export default class Rover extends Container {
   static get events() {
     return EVENTS;
   }
+  get collidables() {
+    return [this, this.lowerShield, this.upperShield];
+  }
   _addShields() {
     this.lowerShield = new Shield();
     this.lowerShield.x = -118;

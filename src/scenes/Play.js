@@ -23,13 +23,25 @@ export default class Play extends Scene {
     this._rocket.x = -483;
     this._rocket.y = -150;
     await this._rocket.init();
+    this._rocket.attachColliders(...this._player.collidables, ...this._enemy.collidables);
+    this._rocket.move();
 
-    this._rocket.move(this._player, this._player.upperShield, this._player.lowerShield);
     this._player.on('collision_body', () => {
       this._player.healthbar.updateHealth(50);
     });
     this._player.on('collision_downshield', () => {
-      console.log("HIT LOWER SHIELD")
+      console.log('HIT LOWER SHIELD');
+      // const rBounds = this._rocket.getBounds();
+      // this._rocket.x = rBounds.x + rBounds.width / 2;
+      // this._rocket.y = rBounds.y + rBounds.height / 2;
+      this._rocket.x += this._rocket._body.x - 50;
+      this._rocket.y += this._rocket._body.y;
+      this._rocket._body.x = 0;
+      this._rocket._body.y = 0;
+      console.log(this._rocket.tl);
+      this._rocket.move(true);
+      console.log(this._rocket.tl);
+      
     });
 
     const footer = new Footer();

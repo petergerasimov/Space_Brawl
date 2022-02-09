@@ -15,6 +15,8 @@ export default class Rocket extends Container {
     this._body.anchor.set(0.5);
     this.addChild(this._body);
 
+    this.colliders = [];
+
     this._paths = [];
     this.tl = gsap.timeline();
     // this.init();
@@ -71,26 +73,38 @@ export default class Rocket extends Container {
       pathArr[i + 1] -= currStart[1];
     }
   }
-
-  move(...colliders) {
+  attachColliders(...colliders) {
+    this.colliders = [...this.colliders, ...colliders];
+  }
+  move(reverse = false) {
     const pathID = Math.floor(Math.random() * this._paths.length);
+    let path = null;
+    if (!reverse) {
+      path = this._paths[pathID];
+    } else {
+      path = this._paths[pathID].map(x => -x);
+    }
 
+    // console.log(path);
+    this.tl.restart();
+    this.tl.clear();
+    
     this.tl
       .to(this._body, {
         duration: 3,
         motionPath:
         {
-          path: this._paths[pathID],
+          path,
           autoRotate: Math.PI / 2,
           alignOrigin: [0.5, 0.5],
           useRadians: true,
         },
         onUpdate: () => {
-          for (const collider of colliders) {
+          for (const collider of this.colliders) {
             if (collider.collidesWith(this._body.getBounds())) {
               this.emit(Rocket.events.COLLISION);
               
-              this.tl.pause();
+              // this.tl.pause();
             }
           }
         }
