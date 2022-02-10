@@ -40,6 +40,10 @@ export default class Splash extends Scene {
       rocket: Assets.images.rocket,
       fire: Assets.images.fire,
       boom: Assets.images.boom,
+      1: Assets.images['1'],
+      2: Assets.images['2'],
+      wins: Assets.images.wins,
+      star: Assets.images.star,
       
     };
     const sounds = {};

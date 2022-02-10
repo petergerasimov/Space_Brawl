@@ -26,7 +26,7 @@ export default class TextButton extends Container {
     });
     btext.anchor.set(0.5);    
     const body = new Graphics();
-    const buttonHeight = btext.height * 1.5;
+    const buttonHeight = btext.height * 3;
     const buttonWidth = btext.width * 3;
     body.beginFill(this.color, 1);
     body.drawRoundedRect(-buttonWidth / 2, -buttonHeight / 2, buttonWidth, buttonHeight, this.radius);

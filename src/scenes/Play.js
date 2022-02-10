@@ -7,6 +7,7 @@ import Rocket from '../components/play/Rocket';
 export default class Play extends Scene {
   async onCreated() {
     this.background.filters = [];
+    this.winner = null;
 
     this._addPlanets();
 
@@ -64,10 +65,23 @@ export default class Play extends Scene {
       }
     });
 
+    this._player.on('death', ()=>{
+      this.winner = 2;
+    });
+    this._enemy.on('death', ()=>{
+      this.winner = 1;
+    });
+
     const footer = new Footer();
     footer.x = -window.innerWidth / 2;
     footer.y = window.innerHeight / 2 - footer.height;
     this.addChild(this._player, this._enemy, this._rocket, footer);
+  }
+  get finish() {
+    return new Promise((res) => {
+      this._player.on('death', res);
+      this._enemy.on('death', res);
+    });
   }
   /**
    *

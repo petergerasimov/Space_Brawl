@@ -3,6 +3,7 @@ import Play from './scenes/Play';
 import Splash from './scenes/Splash';
 import Tutorial from './scenes/Tutorial';
 import Countdown from './scenes/Countdown';
+import Win from './scenes/Win';
 import Assets from './core/AssetManager';
 import fire from './static/fire.json';
 import boom from './static/boom.json';
@@ -43,10 +44,18 @@ export default class Game extends Container {
     // await this.switchScene(Tutorial, { scene: 'tutorial' });
     // await this.currentScene.finish;
 
-    // await this.switchScene(Countdown, { scene: 'countdown' });
-    // await this.currentScene.finish;
+    while (true) { // eslint-disable-line no-constant-condition
+      // await this.switchScene(Countdown, { scene: 'countdown' });
+      // await this.currentScene.finish;
 
-    await this.switchScene(Play, { scene: 'play' });
+      await this.switchScene(Play, { scene: 'play' });
+      await this.currentScene.finish;
+      const winner = this.currentScene.winner;
+
+      await this.switchScene(Win, { scene: 'win' });
+      this.currentScene.setWinner(winner);
+      await this.currentScene.finish;
+    }
   }
 
   /**

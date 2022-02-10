@@ -1,6 +1,6 @@
 import { Container, Graphics, Sprite, Text } from 'pixi.js';
 
-import TextButton from './TextButton';
+import TextButton from '../TextButton';
 import Indicator from './Indicator';
 
 const EVENTS = {
