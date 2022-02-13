@@ -8,6 +8,8 @@ export default class Countdown extends Scene {
     super();
   }
   async onCreated() {
+    this.name = 'countdown';
+
     const footer = new Footer();
     const blurFilter = new filters.BlurFilter();
     blurFilter.blur = 100;

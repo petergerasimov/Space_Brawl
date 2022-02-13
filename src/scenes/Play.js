@@ -6,6 +6,8 @@ import Rocket from '../components/play/Rocket';
 
 export default class Play extends Scene {
   async onCreated() {
+    this.name = 'play';
+
     this.background.filters = [];
     this.winner = null;
 

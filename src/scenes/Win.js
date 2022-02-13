@@ -8,6 +8,7 @@ export default class Win extends Scene {
     super();
   }
   async onCreated() {
+    this.name = 'win';
     
     const blurFilter = new filters.BlurFilter();
     blurFilter.blur = 100;

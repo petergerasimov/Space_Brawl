@@ -7,6 +7,8 @@ import { Sprite, Graphics } from 'pixi.js';
 export default class Loading extends Scene {
   constructor() {
     super();
+    this.name = 'loading';
+
     const color = 0xffffff;
 
     const progWidth = 520;

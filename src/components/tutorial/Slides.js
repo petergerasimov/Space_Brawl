@@ -29,12 +29,12 @@ export default class Slide extends Container {
     this._indicator = new Indicator(this.slides.length);
     this._indicator.y = 115;
 
-    const button = new TextButton('NEXT', 15, 50, 0xffffff);
+    this.button = new TextButton('NEXT', 15, 50, 0xffffff);
     
-    button.y = 298;
-    button.on('click', () => this._updateSlide());
+    this.button.y = 298;
+    this.button.on('click', () => this._updateSlide());
 
-    this.addChild(this._key, this._instructions, this._indicator, button);
+    this.addChild(this._key, this._instructions, this._indicator, this.button);
   }
 
   static get events() {

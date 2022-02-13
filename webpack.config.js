@@ -36,9 +36,4 @@ module.exports = {
       template: "./index.html"
     })
   ],
-  devServer: {
-    host: '192.168.31.134',
-    compress: true,
-    port: 9000,
-  }
 };

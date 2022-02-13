@@ -8,6 +8,8 @@ export default class Tutorial extends Scene {
     super();
   }
   async onCreated() {
+    this.name = 'tutorial';
+
     const blurFilter = new filters.BlurFilter();
     blurFilter.blur = 100;
     this.background.filters = [blurFilter];
