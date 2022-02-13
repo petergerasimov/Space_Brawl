@@ -2,6 +2,8 @@ import { Container, Graphics, Sprite, Text } from 'pixi.js';
 
 import TextButton from '../TextButton';
 import Indicator from './Indicator';
+import Key from './Key';
+import OutlinedText from './OutlinedText';
 
 const EVENTS = {
   SLIDES_COMPLETED: 'slides_completed',
@@ -9,8 +11,7 @@ const EVENTS = {
 
 export default class Slide extends Container {
   /**
-   * @param {String} keyToPress
-   * @param {String} instructions
+   * @param {Array} slides
    */
   constructor(slides) {
     super();
@@ -19,18 +20,21 @@ export default class Slide extends Container {
     this.slides = slides;
     this._index = 0;
     
-    this._addKey();
-    this._addLetter();
-    this._addInstructions();
+    this._key = new Key(this.slides[0].key);
+    this._key.y = -198;
+    
+    this._instructions = new OutlinedText(this.slides[0].instructions);
+    this._instructions.y = 47;
 
     this._indicator = new Indicator(this.slides.length);
-    this.addChild(this._indicator);
-    this._indicator.y = this.key.height - 50;
+    this._indicator.y = 115;
 
     const button = new TextButton('NEXT', 15, 50, 0xffffff);
-    this.addChild(button);
-    button.y += this.key.height;
+    
+    button.y = 298;
     button.on('click', () => this._updateSlide());
+
+    this.addChild(this._key, this._instructions, this._indicator, button);
   }
 
   static get events() {
@@ -47,54 +51,8 @@ export default class Slide extends Container {
       this.emit(Slide.events.SLIDES_COMPLETED);
     }
     this._indicator.select(this._index);
-    this.instructions.text = this.slides[this._index].instructions;
-    this.keyToPress.text = this.slides[this._index].key;
-  }
-  /**
-   * @private
-   */
-  _addKey() {
-    this.key = Sprite.from('key-default');
-    this.key.anchor.set(0.5);
-    this.key.scale.set(0.75);
-    this.addChild(this.key);
-  }
-  /**
-   * @private
-   */
-  _addLetter() {
-    this.keyToPress = new Text(this.slides[0].key, {
-      fontSize: 150,
-      fill: 0xffffff,
-    });
-    this.keyToPress.anchor.set(0.5);
-    this.addChild(this.keyToPress);
-  }
-  /**
-   * @private
-   */
-  _addInstructions() {
-    const color = 0xffffff;
-
-    this.instructions = new Text(`Press "${this.slides[0].key}" to ${this.slides[0].instructions}`, {
-      fontSize: 30,
-      fill: color,
-    });
-    this.instructions.anchor.set(0.5);
-    this.instructions.position.y += this.key.height / 1.5;
-    
-    const outlineWidth = this.instructions.width * 1.25;
-    const outlineHeight = this.instructions.height * 1.5;
-
-    const outline = new Graphics();
-    outline.lineStyle(2, color, 1);
-    outline.beginFill(color, 0);
-    outline.drawRoundedRect(-outlineWidth / 2, -outlineHeight / 2, outlineWidth, outlineHeight, 16);
-    outline.endFill();
-
-    outline.position.y = this.instructions.position.y;
-
-    this.addChild(this.instructions, outline);
+    this._instructions.setText(this.slides[this._index].instructions);
+    this._key.char.text = this.slides[this._index].key;
   }
 
 }

@@ -70,6 +70,6 @@ export default class Loading extends Scene {
   }
 
   onLoadProgress(val) {
-    this.progressBar.updateValue(val);
+    this.progressBar.updateValue(val * 2); // ???
   }
 }

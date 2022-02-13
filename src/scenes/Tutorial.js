@@ -12,9 +12,10 @@ export default class Tutorial extends Scene {
     blurFilter.blur = 100;
     this.background.filters = [blurFilter];
 
-    this._slides = new Slides([{ key: 'A', instructions: 'ala bala' },
-      { key: 'S', instructions: 'sla bala' },
-      { key: 'D', instructions: 'dla bala' }]);
+    this._slides = new Slides([
+      { key: '↑', instructions: 'Press "up" to activate upper shield' },
+      { key: '↓', instructions: 'Press "down" to activate lower shield' },
+    ]);
 
     // key.x = -window.innerWidth / 2;
     // key.y = window.innerHeight / 2;
