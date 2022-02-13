@@ -1,6 +1,7 @@
 import { Container } from 'pixi.js';
 import Play from './scenes/Play';
 import Splash from './scenes/Splash';
+import Loading from './scenes/Loading';
 import Tutorial from './scenes/Tutorial';
 import Countdown from './scenes/Countdown';
 import Win from './scenes/Win';
@@ -33,6 +34,9 @@ export default class Game extends Container {
     await this.switchScene(Splash, { scene: 'splash' });
     await this.currentScene.finish;
 
+    await this.switchScene(Loading, { scene: 'loading' });
+    await this.currentScene.finish;
+
     await Assets.prepareSpritesheets([
       { texture: 'fire', data: fire }
     ]);
@@ -41,12 +45,12 @@ export default class Game extends Container {
       { texture: 'boom', data: boom }
     ]);
 
-    // await this.switchScene(Tutorial, { scene: 'tutorial' });
-    // await this.currentScene.finish;
+    await this.switchScene(Tutorial, { scene: 'tutorial' });
+    await this.currentScene.finish;
 
     while (true) { // eslint-disable-line no-constant-condition
-      // await this.switchScene(Countdown, { scene: 'countdown' });
-      // await this.currentScene.finish;
+      await this.switchScene(Countdown, { scene: 'countdown' });
+      await this.currentScene.finish;
 
       await this.switchScene(Play, { scene: 'play' });
       await this.currentScene.finish;

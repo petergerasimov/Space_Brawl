@@ -27,24 +27,7 @@ export default class Splash extends Scene {
   preload() {
     const images = {
       logo: Assets.images.logo,
-      'key-default': Assets.images['key-default'],
-      'planet-1': Assets.images['planet-1'],
-      'planet-2': Assets.images['planet-2'],
-      'planet-3': Assets.images['planet-3'],
-      'planet-4': Assets.images['planet-4'],
-      rover: Assets.images.rover,
-      'rover-shadow': Assets.images['rover-shadow'],
-      'rover-health-bar': Assets.images['rover-health-bar'],
-      'shield-active': Assets.images['shield-active'],
-      'shield-inactive': Assets.images['shield-inactive'],
-      rocket: Assets.images.rocket,
-      fire: Assets.images.fire,
-      boom: Assets.images.boom,
-      1: Assets.images['1'],
-      2: Assets.images['2'],
-      wins: Assets.images.wins,
-      star: Assets.images.star,
-      
+      ooo: Assets.images.ooo,
     };
     const sounds = {};
 

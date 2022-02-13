@@ -1,5 +1,5 @@
-import { Container, Sprite, Graphics } from 'pixi.js';
-import gsap from 'gsap';
+import { Container, Sprite } from 'pixi.js';
+import ProgressBar from '../ProgressBar';
 
 const EVENTS = {
   EMPTY: 'empty'
@@ -8,8 +8,6 @@ const EVENTS = {
 export default class Healthbar extends Container {
   constructor() {
     super();
-
-    this._health = 100;
     this._startWidth = 117;
     
     const outline = Sprite.from('rover-health-bar');
@@ -18,6 +16,10 @@ export default class Healthbar extends Container {
 
     this._bar = null;
     this._addBar();
+
+    this._bar.on('empty', () => {
+      this.emit(Healthbar.events.EMPTY);
+    });
 
   }
   static get events() {
@@ -29,38 +31,13 @@ export default class Healthbar extends Container {
    * @memberof Healthbar
    */
   _addBar() {
-    this._bar = new Graphics();
     const bodyH = 13;
-    const bodyW = this._startWidth;
-    const color = 0xd4f800;
-    const radius = bodyH / 2;
-    this._bar.beginFill(color, 1);
-    this._bar.drawRoundedRect(-bodyW / 2, -bodyH / 2, bodyW, bodyH, radius);
-    this._bar.endFill();
+    this._bar = new ProgressBar(100, this._startWidth, bodyH, bodyH / 2, 0xd4f800);
     this.addChild(this._bar);
   }
-  /**
-   * @param {Number} to where to update to
-   * @memberof Healthbar
-   */
-  updateHealth(to) {
-    gsap.to(this, {
-      _health: to,
-      onUpdate: () => {
-        const oldW = this._bar.width;
-        this._bar.width = (this._health / 100) * this._startWidth;
-        this._bar.x += (this._bar.width - oldW) / 2;
-      },
-      onComplete: () => {
-        if (this._health === 0) {
-          this.emit(Healthbar.events.EMPTY);
-        }
-      }
-    });
-  }
   subtractHealth(value) {
-    if (this._health > 0) {
-      this.updateHealth(this._health - value);
+    if (this._bar.value > 0) {
+      this._bar.updateValue(this._bar.value - value);
     }
   }
 }

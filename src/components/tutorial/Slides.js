@@ -27,7 +27,7 @@ export default class Slide extends Container {
     this.addChild(this._indicator);
     this._indicator.y = this.key.height - 50;
 
-    const button = new TextButton('NEXT', 35, 50, 0xffffff);
+    const button = new TextButton('NEXT', 15, 50, 0xffffff);
     this.addChild(button);
     button.y += this.key.height;
     button.on('click', () => this._updateSlide());

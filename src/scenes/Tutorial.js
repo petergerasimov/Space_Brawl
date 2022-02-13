@@ -8,14 +8,9 @@ export default class Tutorial extends Scene {
     super();
   }
   async onCreated() {
-    const footer = new Footer();
     const blurFilter = new filters.BlurFilter();
     blurFilter.blur = 100;
-    // blurFilter.quality = 20 // this makes my gpu go wild
     this.background.filters = [blurFilter];
-    footer.x = -window.innerWidth / 2;
-    footer.y = window.innerHeight / 2 - footer.height;
-    this.addChild(footer);
 
     this._slides = new Slides([{ key: 'A', instructions: 'ala bala' },
       { key: 'S', instructions: 'sla bala' },
@@ -25,6 +20,11 @@ export default class Tutorial extends Scene {
     // key.y = window.innerHeight / 2;
 
     this.addChild(this._slides);
+
+    const footer = new Footer();
+    footer.x = -window.innerWidth / 2;
+    footer.y = window.innerHeight / 2 - footer.height;
+    this.addChild(footer);
   }
 
   get finish() {
